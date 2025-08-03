@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ tabla | capitalize }} - GYM TITANS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Anton', sans-serif;
+            color: #f44336;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .volver {
+            display: block;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #f44336;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .tabla-datos {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        .tabla-datos th, .tabla-datos td {
+            border: 1px solid #333;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .tabla-datos th {
+            background-color: #222;
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .tabla-datos tr:nth-child(even) {
+            background-color: #1a1a1a;
+        }
+
+        .tabla-datos tr:hover {
+            background-color: #292929;
+        }
+
+        .btn-nuevo {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            margin: 10px auto 30px;
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background 0.3s;
+            text-align: center;
+            width: 200px;
+        }
+
+        .btn-nuevo a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .btn-nuevo:hover {
+            background-color: #d32f2f;
+        }
+
+    </style>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- DataTables Buttons CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+</head>
+<body>
+
+    <a class="volver" href="{{ url_for('obtener_columnas') }}">← Volver</a>
+
+    <h1 style="color: #f44336;">{{ tabla }}</h1>
+
+    <table id="tabla-gym" class="tabla-datos">
+        <thead>
+        <tr>
+            {% for col in columnas %}
+            <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for fila in datos %}
+            <tr>
+            {% for valor in fila %}
+                <td>{{ valor }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!--<a href="{{ url_for('formulario_nuevo_registro', nombre=tabla) }}" class="btn-nuevo">
+        ➕ Añadir nuevo registro
+    </a>-->
+
+    <div class="btn-nuevo">
+        <a href="{{ url_for('formulario_nuevo_registro', nombre=tabla) }}" class="btn-crear">
+          <i class="fas fa-plus"></i> ➕ Añadir nuevo registro
+        </a>
+    </div>
+      
+
+    <!-- jQuery (requerido por DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#tabla-gym').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'print'
+            ],
+            language: {
+                search: "Buscar:",
+                lengthMenu: "Mostrar _MENU_ registros",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior"
+                },
+                zeroRecords: "No se encontraron resultados",
+            }   
+        });
+    });
+    </script>
+
+    <!-- DataTables Buttons JS y dependencias -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+</body>
+</html>
+

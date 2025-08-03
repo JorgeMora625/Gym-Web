@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Añadir registro</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: #1a1a1a;
+      padding: 40px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 30px rgba(244, 67, 54, 0.3);
+    }
+
+    .form-container h1 {
+      text-align: center;
+      color: #f44336;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 10px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid #444;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+      border-color: #f44336;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 12px;
+      left: 10px;
+      color: #888;
+      font-size: 1rem;
+      pointer-events: none;
+      transition: 0.3s ease;
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 0.8rem;
+      color: #f44336;
+      background-color: #1a1a1a;
+      padding: 0 4px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #f44336;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #d32f2f;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 15px;
+      text-align: center;
+      color: #f44336;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Añadir nuevo registro a {{ nombre }}</h1>
+    <form method="POST">
+      <div class="form-group">
+        <input type="text" name="personalID" required placeholder=" " />
+        <label for="personalID">Personal ID</label>
+      </div>
+      <div class="form-group">
+        <input type="text" name="ejercicio" required placeholder=" " />
+        <label for="ejercicio">Ejercicio</label>
+      </div>
+      <div class="form-group">
+        <input type="number" name="peso" required placeholder=" " />
+        <label for="peso">Peso</label>
+      </div>
+      <div class="form-group">
+        <input type="number" name="repes" required placeholder=" " />
+        <label for="repes">Repeticiones</label>
+      </div>
+      <div class="form-group">
+        <input type="date" name="fecha" required placeholder=" " />
+        <label for="fecha">Fecha</label>
+      </div>
+      <button type="submit" class="btn">Guardar</button>
+    </form>
+    <a href="{{ url_for('mostrar_datos_tabla', nombre=nombre)}}" class="back-link">&larr; Volver a {{ nombre }}</a>
+  </div>
+</body>
+</html>

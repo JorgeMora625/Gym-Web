@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Buscar levantamiento</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #eee;
+            font-family: 'Segoe UI', sans-serif;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 40px 0;
+        }
+
+        .form-container {
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #ff3c3c;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #aaa;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            background-color: #222;
+            color: #fff;
+            border: none;
+            border-bottom: 1px solid #444;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #ff3c3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: bold;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e53535;
+        }
+
+        .mensaje, .resultados {
+            margin-top: 30px;
+            color: #ff3c3c;
+            text-align: center;
+        }
+
+        .resultados ul {
+            padding-left: 0;
+            list-style: none;
+            color: #ccc;
+        }
+
+        .resultados li {
+            margin-bottom: 10px;
+        }
+
+        .volver {
+            display: block;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #f44336;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: #eee;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+
+        th {
+            background-color: #222;
+            color: #ff3c3c;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #1a1a1a;
+        }
+
+        tr:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+        <h1>Buscar registros</h1>
+        <form method="POST">
+            <label for="grupo">Grupo muscular</label>
+            <select name="grupo" id="grupo">
+                <option value="biceps">Biceps</option>
+                <option value="espalda">Espalda</option>
+                <option value="hombro">Hombro</option>
+                <option value="pecho">Pecho</option>
+                <option value="pierna">Pierna</option>
+                <option value="triceps">Triceps</option>
+            </select>
+
+            <label for="fecha">Fecha</label>
+            <input type="date" name="fecha" id="fecha">
+
+            <label for="ejercicio">Ejercicio</label>
+            <input type="text" name="ejercicio" id="ejercicio">
+
+            <label for="peso">Peso</label>
+            <input type="number" name="peso" id="peso">
+
+            <label for="repes">Repeticiones</label>
+            <input type="number" name="repes" id="repes">
+
+            <input type="submit" value="Buscar">
+        </form>
+
+        {% if mensaje %}
+            <div class="mensaje">{{ mensaje }}</div>
+        {% endif %}
+
+        {% if resultados %}
+            <div class="resultados">
+            <h2>Resultados:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ejercicio</th>
+                        <th>Peso</th>
+                        <th>Repeticiones</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in resultados %}
+                    <tr>
+                        <td>{{ r.ejercicio }}</td>
+                        <td>{{ r.peso }}</td>
+                        <td>{{ r.repes }}</td>
+                        <td>{{ r.fecha }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+
+        {% endif %}
+
+        <a class="volver" href="{{ url_for('obtener_columnas') }}">← Volver</a>
+    </div>
+</body>
+</html>
